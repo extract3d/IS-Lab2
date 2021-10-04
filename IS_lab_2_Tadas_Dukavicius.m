@@ -1,6 +1,8 @@
-x = rand(20, 1);
+x = pinv(rand(20, 1));
 
 d = [];
+e = [];
+C = [];
 
 for i=1:20
     d(i) = (1 + 0.6 * sin(2*pi*x(i)/0.7))+0.3*sin(2*pi*x(i))/2;
@@ -28,15 +30,16 @@ b5_1 = randn(1);
 b6_1 = randn(1);
 b1_2 = randn(1);
 
+for j=1:length(x)
 % calculate weighted sum with randomly generated parameters for the first
 % layer
 
-v1_1 = x(1)*w11_1+b1_1;
-v2_1 = x(1)*w21_1+b2_1;
-v3_1 = x(1)*w31_1+b3_1;
-v4_1 = x(1)*w41_1+b4_1;
-v5_1 = x(1)*w51_1+b5_1;
-v6_1 = x(1)*w61_1+b6_1;
+v1_1 = x(j)*w11_1+b1_1;
+v2_1 = x(j)*w21_1+b2_1;
+v3_1 = x(j)*w31_1+b3_1;
+v4_1 = x(j)*w41_1+b4_1;
+v5_1 = x(j)*w51_1+b5_1;
+v6_1 = x(j)*w61_1+b6_1;
 
 % calculate current output of the perceptron using sigmoidal activation
 % function
@@ -58,8 +61,10 @@ y1_2 = v1_2;
 
 % calculate error
 
-e1 = d(1) - y1_2;
+e(j) = d(j) - y1_2;
 
 % calculate cost function
 
-C = 1/2*(e1^2);
+C(j) = 1/2*(e(j)^2);
+
+end
